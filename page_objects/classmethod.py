@@ -90,9 +90,5 @@ class ClassMethods:
         i=30
         while i>0:
             input_field.send_keys(Keys.BACKSPACE)
-            i=i-1
-
-
-
-
+            i = i-1
 

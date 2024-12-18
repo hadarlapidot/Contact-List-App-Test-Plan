@@ -1,7 +1,7 @@
 from time import sleep
 import requests
 import pytest
-from page_objects.base_page import BasePage
+from ..page_objects.base_page import BasePage
 
 
 def test_sign_up_new_user(driver):
