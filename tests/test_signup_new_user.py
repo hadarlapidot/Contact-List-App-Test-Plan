@@ -1,12 +1,13 @@
 from time import sleep
 import requests
 import pytest
-from ..page_objects.base_page import BasePage
+from page_objects.base_page import BasePage
 
-
+@pytest.mark.debug
 def test_sign_up_new_user(driver):
     page = BasePage(driver)
-    page.signup("Sam", "Doe", "SamDoe@what.com", "cupcakes")
+    mail_address = page.generate_random_mail_address()
+    page.signup("Sam", "Doe", mail_address, "cupcakes")
     # User is successfully signed up and redirected to the contact list page.
     assert page.current_url == "https://thinking-tester-contact-list.herokuapp.com/contactList", \
         "Not in Contact List page."
@@ -84,7 +85,7 @@ def test_add_new_contact():
         "country": "USA"
     }
     # Your Bearer token
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmRkYzJmZmM0MGM5MDAwMTM0M2M0ZDEiLCJpYXQiOjE3MjY1MDM0NzN9.xtb2cl-1gHQHM8v3hzi9ZCqBvrNJYKNW4Rc3VEYfvOA"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4NGIzYzA0YjVmMzAwMTNhYzM4ODkiLCJpYXQiOjE3MzQ4ODgyNTJ9.L_T9nj9IfKDV8RIE6hAz5EFf9ddfnd5XU1SvoshmvZo"
 
     # Headers including the Authorization
     headers = {
@@ -107,7 +108,6 @@ def test_add_new_contact():
     assert response.json().get("_id"), "_id  field is empty"
 
 
-@pytest.mark.debug
 def test_missing_required_field():
     # 1. Send POST request with incomplete contact data (missing firstName).
 
@@ -126,7 +126,7 @@ def test_missing_required_field():
         "country": "USA"
     }
     # Your Bearer token
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmRkYzJmZmM0MGM5MDAwMTM0M2M0ZDEiLCJpYXQiOjE3MjY1MDM0NzN9.xtb2cl-1gHQHM8v3hzi9ZCqBvrNJYKNW4Rc3VEYfvOA"
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4NGIzYzA0YjVmMzAwMTNhYzM4ODkiLCJpYXQiOjE3MzQ4ODgyNTJ9.L_T9nj9IfKDV8RIE6hAz5EFf9ddfnd5XU1SvoshmvZo"
 
     # Headers including the Authorization
     headers = {

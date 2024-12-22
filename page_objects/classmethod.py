@@ -6,6 +6,8 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+import random
+import string
 
 
 class ClassMethods:
@@ -92,3 +94,6 @@ class ClassMethods:
             input_field.send_keys(Keys.BACKSPACE)
             i = i-1
 
+    def generate_random_mail_address(self):
+        username = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        return f"{username}@example.com"
