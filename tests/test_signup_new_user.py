@@ -1,29 +1,32 @@
-from time import sleep
 import requests
-import pytest
+
+from data import CONTACT_LIST_URL
 from page_objects.base_page import BasePage
+def test_sign_up_new_user(driver, new_user):
+    """
+    Test the sign-up flow with valid user credentials.
 
-@pytest.mark.debug
-def test_sign_up_new_user(driver):
+    This test generates a random email address, fills out the sign-up form, 
+    submits it, and verifies that the user is redirected to the contact list page.
+    """
     page = BasePage(driver)
-    mail_address = page.generate_random_mail_address()
-    page.signup("Sam", "Doe", mail_address, "cupcakes")
+    page.signup(new_user["first"], new_user["last"], new_user["email"], new_user["password"])
     # User is successfully signed up and redirected to the contact list page.
-    assert page.current_url == "https://thinking-tester-contact-list.herokuapp.com/contactList", \
-        "Not in Contact List page."
+    assert page.current_url == CONTACT_LIST_URL, \
+        "User hasn't been successfully redirected to the Contact List page."
 
-
-def test_login_existing_user(driver):
+def test_login_existing_user(driver, new_user):
+    """"""
     page = BasePage(driver)
-    page.login("SamDoe@what.com", "cupcakes")
+    page.login(new_user["email"], new_user["password"])
     # User is logged in successfully and "Add a New Contact" button is visible.
     assert page.add_a_new_contact_button_is_visible(), \
         "Log in Failed- couldn't find the 'Add a New Contact' button"
 
 
-def test_add_new_contact(driver):
+def test_add_new_contact(driver, new_user):
     page = BasePage(driver)
-    test_login_existing_user(driver)
+    page.login(new_user["email"], new_user["password"])
     page.add_new_contact("Sam2", "Doe2", "SamDoe2@what.com")
     # Contact is added successfully. Contact details should be visible.
     assert page.current_url == "https://thinking-tester-contact-list.herokuapp.com/contactList", \
@@ -31,10 +34,9 @@ def test_add_new_contact(driver):
     assert page.contact_has_been_added_successfully("Sam2", "Doe2", "SamDoe2@what.com", 2)
 
 
-def test_edit_existing_contact(driver):
+def test_edit_existing_contact(driver, new_user):
     page = BasePage(driver)
-    test_login_existing_user(driver)
-    # 1. Select the contact
+    page.login(new_user["email"], new_user["password"])
     page.click_on_first_contact_in_table(driver)
     # 2. Click "Edit Contact".
     page.click_edit()
@@ -42,28 +44,27 @@ def test_edit_existing_contact(driver):
     page.edit_contact("Adam", "Sandler", "AdamSandlerOG@HotMail.com")
     # 4. Click "Submit".
     page.click_submit()
+    # assret redirection
+    page.check_you_are_in_contactDetails_page()
 
-    assert page.check_you_are_in_contactlist_page(), "It didn't work..."
 
-
-def test_delete_existing_contact(driver):
+def test_delete_existing_contact(driver, new_user):
     # 1. Select the contact
     page = BasePage(driver)
-    test_login_existing_user(driver)
+    page.login(new_user["email"], new_user["password"])
     # 1. Select the contact
     page.click_on_first_contact_in_table(driver)
     # 2. Click "Delete Contact".
     page.click_delete()
     alert = driver.switch_to.alert
     alert.accept()
-    sleep(2)
     # 3. Confirm deletion.
     # --missing--
 
 
-def test_logout(driver):
+def test_logout(driver, new_user):
     page = BasePage(driver)
-    test_login_existing_user(driver)
+    page.login(new_user["email"], new_user["password"])
     # 1. Click "Logout".
     page.click_logout()
 
