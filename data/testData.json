@@ -5,7 +5,39 @@
         "CONTACT_DETAILS" : "https://thinking-tester-contact-list.herokuapp.com/contactDetails",
         "HOME_PAGE" : "https://thinking-tester-contact-list.herokuapp.com/",
         "ADD_USER" : "https://thinking-tester-contact-list.herokuapp.com/addUser",
-        "ADD_CONTACT" : "https://thinking-tester-contact-list.herokuapp.com/addContact"
-    }
-
+        "ADD_CONTACT" : "https://thinking-tester-contact-list.herokuapp.com/addContact",
+        "CONTACTS" : "https://thinking-tester-contact-list.herokuapp.com/contacts"
+    },
+    "NEW_CONTACTS": {
+        "VALID" : {
+            "firstName": "John",
+            "lastName": "Doe",
+            "birthdate": "1970-01-01",
+            "email": "jdoe@fake.com",
+            "phone": "8005555555",
+            "street1": "1 Main St.",
+            "street2": "Apartment A",
+            "city": "Anytown",
+            "stateProvince": "KS",
+            "postalCode": "12345",
+            "country": "USA"
+        },
+        "INVALID" : {
+            "firstName": "",
+            "lastName": "Doe",
+            "birthdate": "1970-01-01",
+            "email": "jdoe@fake.com",
+            "phone": "8005555555",
+            "street1": "1 Main St.",
+            "street2": "Apartment A",
+            "city": "Anytown",
+            "stateProvince": "KS",
+            "postalCode": "12345",
+            "country": "USA"
+        }
+    },  
+    "ERRORS": {
+        "FIRST_NAME_MISSING" : "Path `firstName` is required."
+    },
+    "TOKEN" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzY4NGIzYzA0YjVmMzAwMTNhYzM4ODkiLCJpYXQiOjE3MzQ4ODgyNTJ9.L_T9nj9IfKDV8RIE6hAz5EFf9ddfnd5XU1SvoshmvZo"
 }
