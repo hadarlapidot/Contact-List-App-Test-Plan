@@ -37,14 +37,14 @@ def new_user():
     """Creates a random user credentials to be used in sign up flow and in login flow, in this order"""
     faker = Faker()
 
-    first = faker.first_name()
-    last = faker.last_name()
+    first_name = faker.first_name()
+    last_name = faker.last_name()
     email = faker.email()
     password = faker.password(length=10)
 
     return {
-        "first": first,
-        "last": last,
+        "first_name": first_name,
+        "last_name": last_name,
         "email": email,
         "password": password
     }

@@ -1,0 +1,11 @@
+{
+
+    "URLS": {
+        "CONTACT_LIST" : "https://thinking-tester-contact-list.herokuapp.com/contactList",
+        "CONTACT_DETAILS" : "https://thinking-tester-contact-list.herokuapp.com/contactDetails",
+        "HOME_PAGE" : "https://thinking-tester-contact-list.herokuapp.com/",
+        "ADD_USER" : "https://thinking-tester-contact-list.herokuapp.com/addUser",
+        "ADD_CONTACT" : "https://thinking-tester-contact-list.herokuapp.com/addContact"
+    }
+
+}

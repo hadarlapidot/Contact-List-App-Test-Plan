@@ -16,15 +16,15 @@ class ContactListHelper:
         self.wait = WebDriverWait(self._driver, 10)
         # LOCATORS
         # main page
-        self._signup_button_locator = (By.ID, "signup")
-        self._submit_button_locator = (By.ID, "submit")
+        self._signup_button = (By.ID, "signup")
+        self._submit_button = (By.ID, "submit")
         # sign up page
-        self._signup_firstname_textfield_locator = (By.ID, "firstName")
-        self._signup_lastname_textfield_locator = (By.ID, "lastName")
-        self._signup_email_textfield_locator = (By.ID, "email")
-        self._signup_password_textfield_locator = (By.ID, "password")
+        self._signup_firstname_textfield = (By.ID, "firstName")
+        self._signup_lastname_textfield = (By.ID, "lastName")
+        self._signup_email_textfield = (By.ID, "email")
+        self._signup_password_textfield = (By.ID, "password")
         # contact list page
-        self._add_a_new_contact_button_locator = (By.ID, "add-contact")
+        self._add_a_new_contact_button = (By.ID, "add-contact")
         # Add Contact
 
     def find_by_id(self, locator) -> WebElement:
@@ -34,23 +34,22 @@ class ContactListHelper:
         self._driver.get("https://thinking-tester-contact-list.herokuapp.com/")
 
     def click_signup(self):
-        locator = self._signup_button_locator
-        self.wait_until_clickable(locator)
-        self.find_by_id(locator).click()
+        sign_up_btn = self.wait_until_clickable(self._signup_button)
+        sign_up_btn.click()
 
     def click_submit(self):
-        self.wait_until_clickable((By.ID, "submit"))
-        self.find_by_id((By.ID, "submit")).click()
+        submit_btn = self.wait_until_clickable(self._submit_button)
+        submit_btn.click()
 
     def click(self, locator):
-        self.wait_until_clickable(locator)
-        self.find_by_id(locator).click()
+        btn = self.wait_until_clickable(locator)
+        btn.click()
 
     def wait_until_element_is_visible(self, locator: tuple, time: int = 10):
         self.wait.until(ec.visibility_of_element_located(locator))
 
     def wait_until_clickable(self, locator: tuple, time: int = 10):
-        self.wait.until(ec.element_to_be_clickable(locator))
+        return self.wait.until(ec.element_to_be_clickable(locator))
 
     # def get_header(self, time: int = 10):
     #     header = self.wait.until(
@@ -60,26 +59,27 @@ class ContactListHelper:
         self.fill_up_email_and_password(email, password)
 
     def fill_up_email_and_password(self, email, password):
-        self.wait_until_element_is_visible(self._signup_email_textfield_locator)
-        self.find_by_id(self._signup_email_textfield_locator).send_keys(email)
-        self.find_by_id(self._signup_password_textfield_locator).send_keys(password)
+        self.wait_until_element_is_visible(self._signup_email_textfield)
+        self.find_by_id(self._signup_email_textfield).send_keys(email)
+        self.find_by_id(self._signup_password_textfield).send_keys(password)
 
     def fill_up_name(self, first_name: str, last_name: str):
         # first name
-        text_field = self.find_by_id(self._signup_firstname_textfield_locator)
+        text_field = self.find_by_id(self._signup_firstname_textfield)
         self.clear_input_field(text_field)
         text_field.send_keys(first_name)
         # last name
-        text_field = self.find_by_id(self._signup_lastname_textfield_locator)
+        text_field = self.find_by_id(self._signup_lastname_textfield)
         self.clear_input_field(text_field)
         text_field.send_keys(last_name)
 
+    @property
     def add_a_new_contact_button_is_visible(self):
-        return ec.visibility_of_element_located(self._add_a_new_contact_button_locator)
+        return ec.visibility_of_element_located(self._add_a_new_contact_button)
 
     def fill_up_add_contact_form(self, first_name: str, last_name: str, email: str):
         self.fill_up_name(first_name, last_name)
-        text_field = self.find_by_id(self._signup_email_textfield_locator)
+        text_field = self.find_by_id(self._signup_email_textfield)
         self.clear_input_field(text_field)
         text_field.send_keys(email)
 
