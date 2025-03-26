@@ -23,8 +23,8 @@ contact-list-tests
 │   │-- base_page
 │   │-- contact_list_helper
 │-- tests
-|   |-- api_tests.py
-|   |-- ui_tests.py
+|   |-- test_api.py
+|   |-- test_ui.py
 │-- conftest.py
 │-- README.md
 │-- requirements.txt
